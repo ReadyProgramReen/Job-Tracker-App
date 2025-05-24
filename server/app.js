@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 dotenv.config(); //needs to be before the express 
 import express from "express"
-import {jobsRouter}  from "./routes/job.js"
+import {jobsRouter}  from "./routes/jobs.js"
 
 const app = express()
 app.use(express.json());
