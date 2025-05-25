@@ -39,8 +39,26 @@ useEffect(()=>{
         <li><p>{eachJob.status}</p></li>
         <li><p>{eachJob.notes}</p></li>
         <li><p>{eachJob.date}</p></li>
+        <li><button onClick={()=>handleDelete(eachJob.id)}>DELETE</button></li>
     </ul>
   ))
+
+  //Client deleted a job with the id
+  function handleDelete(id){
+    //Fetch: delete request
+    fetch(`http://localhost:8000/jobs/${id}`,{
+      //declare the method
+      method: "DELETE"
+    })
+    //re-fetch the jobs data from the server 
+    .then(()=>fetchJobs())
+    //catching the fetch delete errors
+    .catch(err=>console.log("fetch delete error:", err))
+
+
+    
+
+  }
 
   // when client submits a form : implement a fetch PUT request
   function handleFormSubmit(e){
