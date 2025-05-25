@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const jobsRouter = express.Router()
 
 //for all saved jobs
-const jobs = []
+let jobs = []
 
 //Load the /jobs root path 
 jobsRouter.get('/',(req,res)=>{
@@ -56,9 +56,7 @@ const updatedJobData = req.body;
 // }
 // if(updatedJobData.date){
 //     foundJob.date = updatedJobData.date
-
 // }
-
 
 //Make an array of fields you allow updates for 
 let updatedArray = ['company', 'title', 'status', 'date', 'notes']
@@ -69,9 +67,21 @@ updatedArray.forEach(update=>{
         foundJob[update] = updatedJobData[update]
     }
 })
+res.status(200).json({message: "Job id updated"})
+})
 
-res.status(200).send('id found')
 
+//DELETE REQUEST
+jobsRouter.delete('/:id',(req,res)=>{
+    //store the root parmas in a variable 
+    const usersJobId = req.params.id
+    
+    //find the id in the job array and delete it(remember: filter creates a new array and doesnt change the existing one)
+    jobs = jobs.filter(job=> job.id !== usersJobId )
+
+    //send back a status code that everything went well
+    res.status(200).json({message: "Job Deleted"})
 
 })
+
 
