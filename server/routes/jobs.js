@@ -17,7 +17,7 @@ jobsRouter.get('/',(req,res)=>{
 jobsRouter.post('/',(req,res)=>{  
 // Access the job data sent in the request body
     const newJobs = req.body
-    console.log(newJobs) 
+    // console.log(newJobs) 
 //updated each object to include a unique id
     const jobWithId = { id: uuidv4(), ...newJobs }; 
 //saved the new jobs by adding it into the jobs array 
@@ -39,7 +39,7 @@ let foundJob = jobs.find(job=> job.id === usersJobId)
 console.log("Users id input",usersJobId)
 console.log("Found id",foundJob)
 
-//see what new/updated data the user/client is sending through the body
+//access the updated req.body data
 const updatedJobData = req.body;
 
 //update the job database with new updated data from the req.body
