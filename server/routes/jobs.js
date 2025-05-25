@@ -43,11 +43,34 @@ console.log("Found id",foundJob)
 const updatedJobData = req.body;
 
 //update the job database with new updated data from the req.body
- foundJob.status = updatedJobData.status
+// if(updatedJobData.company){
+//     foundJob.company = updatedJobData.company
+// }
+// if(updatedJobData.title){
+//     foundJob.title = updatedJobData.title
 
+// }
+// if(updatedJobData.status){
+//     foundJob.status = updatedJobData.status
+
+// }
+// if(updatedJobData.date){
+//     foundJob.date = updatedJobData.date
+
+// }
+
+
+//Make an array of fields you allow updates for 
+let updatedArray = ['company', 'title', 'status', 'date', 'notes']
+
+//loop through the array to check if the req.body has anything to update 
+updatedArray.forEach(update=>{
+    if(updatedJobData[update]){
+        foundJob[update] = updatedJobData[update]
+    }
+})
 
 res.status(200).send('id found')
-
 
 
 })
