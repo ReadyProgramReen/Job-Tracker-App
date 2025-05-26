@@ -14,6 +14,18 @@ function App() {
   const [notes,setNotes] = useState('')
    //Date input  state
   const [date,setDate] = useState('')
+  //Track the editing jobs state
+  const [editingJobId, setEditingJobId] = useState(null)
+  //edit company
+  const [editCompany, setEditCompany] = useState('')
+  //edit job title 
+  const [editTitle,setEditTitle] = useState('')
+  //edit job status
+  const [editStatus, setEditStatus] = useState('Applied')
+  //edit job notes 
+  const [editNotes,setEditNotes] = useState('')
+  //edit job dates
+  const [editDate,setEditDate] = useState('')
   
 //Fetches all the jobs data 
 function fetchJobs() {
@@ -31,15 +43,78 @@ useEffect(()=>{
   fetchJobs()
 },[])
 
+// Edit function with a passed in id when save edit button is clicked
+function handleSave(id){
+  console.log("handle edit button")
+
+  //fetch PUT
+  fetch(`http://localhost:8000/jobs/${id}`,{
+      //declare the method
+      method: "PUT",
+      headers:{"content-type" : "application/json"},
+      body: JSON.stringify({
+         company: editCompany,
+          title: editTitle,
+          status: editStatus,
+          date: editDate,
+          notes:editNotes
+      })
+
+    })
+    .then(()=>{
+      //re-fetch the list
+      fetchJobs()
+      //reassigns the edit tracker state back to null
+      setEditingJobId(null)
+    })
+    .catch(err=>console.log(err))
+
+
+}
+
 //the entire list of jobs 
   const listOfJobs = jobs.map(eachJob=>(
     <ul key={eachJob.id}>
-        <li><h3>{eachJob.company}</h3></li>
-        <li><p>{eachJob.title}</p></li>
-        <li><p>{eachJob.status}</p></li>
-        <li><p>{eachJob.notes}</p></li>
-        <li><p>{eachJob.date}</p></li>
-        <li><button onClick={()=>handleDelete(eachJob.id)}>DELETE</button></li>
+        
+          {/* when user clicks edit on a jobs list :job is in edit mode so the input field is displayed*/}
+  {editingJobId === eachJob.id ? (
+  <>
+    <li><input value={editCompany} onChange={(e) => setEditCompany(e.target.value)} /></li>
+    <li><input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} /></li>
+    <li><select value={editStatus} onChange={(e) => setEditStatus(e.target.value)}>
+      <option value="" disabled>Select status</option>
+      <option value="Applied">Applied</option>
+      <option value="Interview">Interview</option>
+      <option value="Offer">Offer</option></select></li>
+    <li><input type="date" value={editDate} onChange={(e) => setEditDate(e.target.value)} /></li>
+    <li><input value={editNotes} onChange={(e) => setEditNotes(e.target.value)} /></li>
+
+    {/*  Save Edit button */}
+    <button onClick={() => handleSave(eachJob.id)}>Save Edits</button>
+  </>
+) : (
+  //  OR Normal display and Edit button
+  <>
+          <li><h3>{eachJob.company}</h3></li>
+          <li><h3>{eachJob.title}</h3></li>
+          <li><h3>{eachJob.status}</h3></li>
+          <li><h3>{eachJob.notes}</h3></li>
+          <li><h3>{eachJob.date}</h3></li>
+
+          <li><button onClick={()=>handleDelete(eachJob.id)}>DELETE</button></li>
+          <li><button onClick={()=>{{
+            // inform the edit tracker state of which jobs id was clicked 
+            setEditingJobId(eachJob.id);
+            //keep the value of each current input field in case user only wants to edit some of the fields
+            setEditCompany(eachJob.company);
+            setEditTitle(eachJob.title);
+            setEditStatus(eachJob.status);
+            setEditDate(eachJob.date);
+            setEditNotes(eachJob.notes);
+          }}}>EDIT</button></li>
+  </>
+)}
+          
     </ul>
   ))
 
