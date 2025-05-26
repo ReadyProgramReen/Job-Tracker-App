@@ -74,9 +74,11 @@ function App() {
     // Random colors for each job card 
   const cardColors = ['#fce4ec', '#e8f5e9', '#e3f2fd', '#fff3e0', '#f3e5f5', '#f0f4c3'];
 
-  
+  // reverse the jobs list to show the newest job at the top
+  const reversedJobs = [...jobs].reverse()
+
   //the entire list of jobs
-  const listOfJobs = jobs.map((eachJob,index) => (
+  const listOfJobs = reversedJobs.map((eachJob,index) => (
     <div key={eachJob.id} 
     className="job-card"
     style={{ backgroundColor: cardColors[index % cardColors.length] }}
@@ -197,7 +199,6 @@ function App() {
     // stops browser from reloading
     e.preventDefault();
     // console.log("handleFormSubmit")
-    
 
     //POST fetch request
     fetch(`http://localhost:8000/jobs`, {
@@ -258,6 +259,7 @@ function App() {
         type="text"
         value={company}
         onChange={(e) => setCompany(e.target.value)}
+        required 
       />
     </div>
     <div className="form-group">
@@ -266,6 +268,7 @@ function App() {
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        required 
       />
     </div>
   </div>
@@ -273,7 +276,7 @@ function App() {
   <div className="form-row">
     <div className="form-group">
       <label>Job Status :</label>
-      <select value={status} onChange={(e) => setStatus(e.target.value)}>
+      <select value={status} onChange={(e) => setStatus(e.target.value)} required >
         <option value="" disabled>
           Select status
         </option>
@@ -289,6 +292,7 @@ function App() {
         type="text"
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
+        required 
       />
     </div>
   </div>
@@ -300,6 +304,7 @@ function App() {
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
+        required 
       />
     </div>
 
