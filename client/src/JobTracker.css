@@ -1,8 +1,8 @@
 #body{
-    font-family: sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
     background-color: #f4f4f4;
     margin:0;
-    padding:0
+    padding:0;
 
 }
 
@@ -14,6 +14,8 @@
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+
+/* forms  */
 
 form{
     display: flex;
@@ -51,4 +53,60 @@ form button:hover{
     background-color: #0056b3;
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 
+}
+
+/* HEADER */
+h1{
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 42px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #5c3a2b;
+}
+
+/* each jobs  */
+.job-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;    
+}
+
+.job-card {
+  background-color: #fafafa;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  max-width: 45%;
+  box-shadow: 0 4px 12px rgba(117, 88, 88, 0.5);
+  
+
+}
+.job-card h2 {
+ font-size: 16px;
+ color: #974e2f;
+}
+
+.job-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #5e7997;
+}
+
+
+.job-card p {
+  margin: 6px 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.job-card button {
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

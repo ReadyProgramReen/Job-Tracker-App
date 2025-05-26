@@ -69,25 +69,26 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  
   //the entire list of jobs
   const listOfJobs = jobs.map((eachJob) => (
-    <ul key={eachJob.id}>
+    <div key={eachJob.id} className="job-card">
       {/* when user clicks edit on a jobs list :job is in edit mode so the input field is displayed*/}
       {editingJobId === eachJob.id ? (
         <>
-          <li>
+          <p>
             <input
               value={editCompany}
               onChange={(e) => setEditCompany(e.target.value)}
             />
-          </li>
-          <li>
+          </p>
+          <p>
             <input
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
             />
-          </li>
-          <li>
+          </p>
+          <p>
             <select
               value={editStatus}
               onChange={(e) => setEditStatus(e.target.value)}
@@ -99,20 +100,20 @@ function App() {
               <option value="Interview">Interview</option>
               <option value="Offer">Offer</option>
             </select>
-          </li>
-          <li>
+          </p>
+          <p>
             <input
               type="date"
               value={editDate}
               onChange={(e) => setEditDate(e.target.value)}
             />
-          </li>
-          <li>
+          </p>
+          <p>
             <input
               value={editNotes}
               onChange={(e) => setEditNotes(e.target.value)}
             />
-          </li>
+          </p>
 
           {/*  Save Edit button */}
           <button onClick={() => handleSave(eachJob.id)}>Save Edits</button>
@@ -120,26 +121,26 @@ function App() {
       ) : (
         //  OR Normal display and Edit button
         <>
-          <li>
-            <h3>{eachJob.company}</h3>
-          </li>
-          <li>
+        
+            <h2>{eachJob.company.toUpperCase()}</h2>
+          
+        
             <h3>{eachJob.title}</h3>
-          </li>
-          <li>
+          
+        
             <h3>{eachJob.status}</h3>
-          </li>
-          <li>
+          
+        
             <h3>{eachJob.notes}</h3>
-          </li>
-          <li>
+          
+        
             <h3>{eachJob.date}</h3>
-          </li>
+          
 
-          <li>
+        
             <button onClick={() => handleDelete(eachJob.id)}>DELETE</button>
-          </li>
-          <li>
+          
+        
             <button
               onClick={() => {
                 {
@@ -156,10 +157,10 @@ function App() {
             >
               EDIT
             </button>
-          </li>
+          
         </>
       )}
-    </ul>
+    </div>
   ));
 
   //Client deleted a job with the id
@@ -206,13 +207,15 @@ function App() {
       })
       .catch((err) => console.error("Error adding job:", err));
   }
+  
+
 
   return (
     <div className="app-container">
       <h1>Job Tracker</h1>
 
       {/* display all the jobs in the UI*/}
-      <div>{listOfJobs}</div>
+      <div className="job-list">{listOfJobs}</div>
 
       {/* Form to add new Job Title */}
       <form method="POST" onSubmit={handleFormSubmit}>
