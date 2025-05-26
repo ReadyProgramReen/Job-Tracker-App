@@ -10,7 +10,7 @@
     max-width: 700px;
     margin: 40px auto;
     padding: 20px;
-    background-color: antiquewhite;
+    background-color: rgb(230, 226, 221);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
@@ -68,7 +68,7 @@ h1{
 .job-list{
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     justify-content: space-between;    
 }
 
@@ -78,6 +78,7 @@ h1{
   border: 1px solid #ddd;
   border-radius: 12px;
   margin-bottom: 20px;
+  min-width: 25%;
   max-width: 45%;
   box-shadow: 0 4px 12px rgba(117, 88, 88, 0.5);
   
@@ -102,11 +103,27 @@ h1{
 }
 
 .job-card button {
-  margin-right: 10px;
+  margin-right: 5px;
   margin-top: 10px;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding-bottom: 10px;
+  background-color: transparent;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.job-card button img:hover{
+    border-radius: 2px;
+    background-color: #ccc;
+}
+
+.job-card button img:hover{
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.job-card button.save-edit{
+    background-color: #da9e9e;
+    padding: 10px;
+    font-weight: 700;
+    
 }

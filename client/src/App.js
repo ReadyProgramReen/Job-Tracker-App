@@ -69,10 +69,17 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+    // random colors for each card element
+  const cardColors = ['#fce4ec', '#e8f5e9', '#e3f2fd', '#fff3e0', '#f3e5f5', '#f0f4c3'];
+
   
   //the entire list of jobs
-  const listOfJobs = jobs.map((eachJob) => (
-    <div key={eachJob.id} className="job-card">
+  const listOfJobs = jobs.map((eachJob,index) => (
+    <div key={eachJob.id} 
+    className="job-card"
+    style={{ backgroundColor: cardColors[index % cardColors.length] }}
+
+    >
       {/* when user clicks edit on a jobs list :job is in edit mode so the input field is displayed*/}
       {editingJobId === eachJob.id ? (
         <>
@@ -116,7 +123,7 @@ function App() {
           </p>
 
           {/*  Save Edit button */}
-          <button onClick={() => handleSave(eachJob.id)}>Save Edits</button>
+          <button className="save-edit" onClick={() => handleSave(eachJob.id)}>Save </button>
         </>
       ) : (
         //  OR Normal display and Edit button
@@ -134,11 +141,17 @@ function App() {
             <h3>{eachJob.notes}</h3>
           
         
-            <h3>{eachJob.date}</h3>
+            <h3>{new Date(eachJob.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}</h3>
           
 
         
-            <button onClick={() => handleDelete(eachJob.id)}>DELETE</button>
+            <button onClick={() => handleDelete(eachJob.id)}>
+              <img src="/delete.png" alt="Delete" width="20" />
+              </button>
           
         
             <button
@@ -154,8 +167,9 @@ function App() {
                   setEditNotes(eachJob.notes);
                 }
               }}
+              
             >
-              EDIT
+               <img src="/edit.png" alt="Edit" width="20" />
             </button>
           
         </>
