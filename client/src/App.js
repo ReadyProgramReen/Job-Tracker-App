@@ -26,6 +26,8 @@ function App() {
   const [editNotes, setEditNotes] = useState("");
   //edit job dates
   const [editDate, setEditDate] = useState("");
+  //To add new job to list
+  const [addNewJob, setAddNewJob] = useState(false)
 
   //Fetches all the jobs data
   function fetchJobs() {
@@ -43,7 +45,7 @@ function App() {
     fetchJobs();
   }, []);
 
-  // Edit function with a passed in id when save edit button is clicked
+  // Edit jobs function with a passed in id when save edit button is clicked
   function handleSave(id) {
     console.log("handle edit button");
 
@@ -69,7 +71,7 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-    // random colors for each card element
+    // Random colors for each job card 
   const cardColors = ['#fce4ec', '#e8f5e9', '#e3f2fd', '#fff3e0', '#f3e5f5', '#f0f4c3'];
 
   
@@ -195,6 +197,7 @@ function App() {
     // stops browser from reloading
     e.preventDefault();
     // console.log("handleFormSubmit")
+    
 
     //POST fetch request
     fetch(`http://localhost:8000/jobs`, {
@@ -220,56 +223,102 @@ function App() {
         setNotes("");
       })
       .catch((err) => console.error("Error adding job:", err));
+    
+      //Once the form is sent show the user the + button again
+      setAddNewJob(false)
   }
   
+  //Button to show the form field
+    function addNewForm(){
+      //  when clicked  the form will be shown to the user
+      setAddNewJob(true)
+    }
+
 
 
   return (
     <div className="app-container">
       <h1>Job Tracker</h1>
 
-      {/* display all the jobs in the UI*/}
-      <div className="job-list">{listOfJobs}</div>
+     
 
+    {/*If the client clicks the + button to add new form . The form apears  */}
+    {!addNewJob ? (
+      <>
+      <button className="add-new-form-btn" onClick={()=>addNewForm()}>+</button>
+      </>
+    ):(
+      <>
       {/* Form to add new Job Title */}
-      <form method="POST" onSubmit={handleFormSubmit}>
-        <label>Company Name:</label>
-        <input
-          type="text"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-        />
-        <label>Job Title :</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+     <form method="POST" onSubmit={handleFormSubmit}>
+  <div className="form-row">
+    <div className="form-group">
+      <label>Company Name:</label>
+      <input
+        type="text"
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+      />
+    </div>
+    <div className="form-group">
+      <label>Job Title :</label>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+    </div>
+  </div>
 
-        <label>Job Status :</label>
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="" disabled>
-            Select status
-          </option>
-          <option value="Applied">Applied</option>
-          <option value="Interview">Interview</option>
-          <option value="Offer">Offer</option>
-        </select>
+  <div className="form-row">
+    <div className="form-group">
+      <label>Job Status :</label>
+      <select value={status} onChange={(e) => setStatus(e.target.value)}>
+        <option value="" disabled>
+          Select status
+        </option>
+        <option value="Applied">Applied</option>
+        <option value="Interview">Interview</option>
+        <option value="Offer">Offer</option>
+      </select>
+    </div>
 
-        <label>Notes</label>
-        <input
-          type="text"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        />
-        <label>Application Date :</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
+    <div className="form-group">
+      <label>Notes</label>
+      <input
+        type="text"
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
+      />
+    </div>
+  </div>
+
+  <div className="form-row">
+    <div className="form-group ">
+      <label>Application Date :</label>
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      />
+    </div>
+
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+      
+      </>
+
+    )
+    
+    }
+
+     {/* display all the jobs in the UI*/}
+      <div className="job-list">{listOfJobs}</div>
+      
+
+
     </div>
   );
 }
