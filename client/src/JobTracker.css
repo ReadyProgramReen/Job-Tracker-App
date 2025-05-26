@@ -1,0 +1,54 @@
+#body{
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    margin:0;
+    padding:0
+
+}
+
+.app-container{
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: antiquewhite;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #ddd;
+    max-width: 60%;
+}
+
+form label{
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+form input, form select{
+    padding: 5px;
+    font-size: 12px;
+    border: 1px xolid #ccc;
+    border-radius: 4px;
+
+}
+
+form button{
+    padding: 10px;
+    font-size : 16px;
+    background-color : #9baec2;
+    color: white;
+    border:none;
+    cursor: pointer
+}
+
+form button:hover{
+    background-color: #0056b3;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+
+}
