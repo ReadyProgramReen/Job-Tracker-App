@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import "./JobTracker.css";
 
 function App() {
-  //all job data state
-  const [jobs, setJobs] = useState([]);
+  //all job data state using get LocalStorage
+  const [jobs, setJobs] = useState(()=>{
+    const storedJobs = localStorage.getItem("jobs");
+    return storedJobs ? JSON.parse(storedJobs): []
+  });
   //company input state
   const [company, setCompany] = useState("");
   //Job title input state
@@ -41,6 +44,10 @@ function App() {
       //catches the error
       .catch((err) => console.error("Error fetching jobs:", err));
   }
+  // Local Store is updated anytime job is added , edited or deleted
+  useEffect(()=>{
+    localStorage.setItem("jobs",JSON.stringify(jobs));
+  },[jobs])
 
   //on page load : fetch the jobs data from the server
   useEffect(() => {
