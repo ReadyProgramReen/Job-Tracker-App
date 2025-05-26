@@ -28,6 +28,8 @@ function App() {
   const [editDate, setEditDate] = useState("");
   //To add new job to list
   const [addNewJob, setAddNewJob] = useState(false);
+  //filter by status
+  const [filterStatus, setFilterStatus] = useState("All")
 
   //Fetches all the jobs data
   function fetchJobs() {
@@ -81,11 +83,14 @@ function App() {
     "#f0f4c3",
   ];
 
-  // reverse the jobs list to show the newest job at the top
-  const reversedJobs = [...jobs].reverse();
-
+  // filter the job based on status and reverse the jobs list to show the newest job at the top
+  const visibleJobs = filterStatus === "All"
+  ? [...jobs].reverse()
+  : [...jobs]
+      .filter((job) => job.status === filterStatus)
+      .reverse();
   //the entire list of jobs
-  const listOfJobs = reversedJobs.map((eachJob, index) => (
+  const listOfJobs = visibleJobs.map((eachJob, index) => (
     <div
       key={eachJob.id}
       className="job-card"
@@ -117,6 +122,8 @@ function App() {
               <option value="Applied">Applied</option>
               <option value="Interview">Interview</option>
               <option value="Offer">Offer</option>
+              <option value="Rejected">Rejected</option>
+
             </select>
           </p>
           <p>
@@ -240,6 +247,32 @@ function App() {
     <div className="app-container">
       <h1>Job Tracker</h1>
 
+    {/* form for the status filter  */}
+
+    {/* Show filter status only when the jobs array is more than 20 */}
+    { jobs.length > 10 &&
+
+   <div style={{ marginBottom: '20px' }}>
+  <label htmlFor="status-filter" style={{ marginRight: '8px', fontWeight: 'bold' }}>
+    Filter:
+  </label>
+  <select
+    id="status-filter"
+    value={filterStatus}
+    onChange={(e) => setFilterStatus(e.target.value)}
+  >
+    <option value="All">All</option>
+    <option value="Applied">Applied</option>
+    <option value="Interview">Interview</option>
+    <option value="Offer">Offer</option>
+    <option value="Rejected">Rejected</option>
+  </select>
+</div>
+}
+
+
+
+
       {/*If the client clicks the + button to add new form . The form apears  */}
       {!addNewJob ? (
         <>
@@ -284,8 +317,10 @@ function App() {
                     Select status
                   </option>
                   <option value="Applied">Applied</option>
-                  <option value="Interview">Interview</option>
+                  <option value="Interviewing">Interviewing</option>
                   <option value="Offer">Offer</option>
+                  <option value="Rejected">Rejected</option>
+
                 </select>
               </div>
 
