@@ -10,7 +10,8 @@ Check out the live site: [Job Tracker Live](https://job-applications-trackers.ne
 
 ## 📸 Preview
 
-![Screenshot of Job Tracker App](./assets/demo-screenshot.png)
+
+<img width="767" alt="jobtrackerimg" src="https://github.com/user-attachments/assets/ee7199fb-e57e-4a08-be7d-f5096e99b37f" />
 
 
 ## ✨ Features
